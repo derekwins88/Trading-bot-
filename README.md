@@ -1,4 +1,4 @@
-# Trading-bot-
+
 
 Learns over trades and generates badge tables from stored capsules.
 
