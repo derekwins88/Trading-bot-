@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AC98C746-5663-4C43-AED5-1023B6592488}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuantumCollapseStrategy", "src\Strategies\QuantumCollapseStrategy.csproj", "{142BD0E0-3029-485D-9F54-06B71DA02692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolicTrading.Engine", "src\Engine\SymbolicTrading.Engine.csproj", "{60B40B33-7C3B-444F-B430-40B0620847A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolicTrading.Modules", "src\Modules\SymbolicTrading.Modules.csproj", "{61493464-CE85-40B3-BA8D-F24CBB7BE817}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DD2630D9-036D-41F5-9803-5BF8362F7557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SymbolicTrading.Tests", "tests\UnitTests\SymbolicTrading.Tests.csproj", "{7715A5E7-E880-46CD-B0FF-C535C56D69BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{142BD0E0-3029-485D-9F54-06B71DA02692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{142BD0E0-3029-485D-9F54-06B71DA02692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{142BD0E0-3029-485D-9F54-06B71DA02692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{142BD0E0-3029-485D-9F54-06B71DA02692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60B40B33-7C3B-444F-B430-40B0620847A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B40B33-7C3B-444F-B430-40B0620847A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B40B33-7C3B-444F-B430-40B0620847A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B40B33-7C3B-444F-B430-40B0620847A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61493464-CE85-40B3-BA8D-F24CBB7BE817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61493464-CE85-40B3-BA8D-F24CBB7BE817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61493464-CE85-40B3-BA8D-F24CBB7BE817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61493464-CE85-40B3-BA8D-F24CBB7BE817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7715A5E7-E880-46CD-B0FF-C535C56D69BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7715A5E7-E880-46CD-B0FF-C535C56D69BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7715A5E7-E880-46CD-B0FF-C535C56D69BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7715A5E7-E880-46CD-B0FF-C535C56D69BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{142BD0E0-3029-485D-9F54-06B71DA02692} = {AC98C746-5663-4C43-AED5-1023B6592488}
+		{60B40B33-7C3B-444F-B430-40B0620847A1} = {AC98C746-5663-4C43-AED5-1023B6592488}
+		{61493464-CE85-40B3-BA8D-F24CBB7BE817} = {AC98C746-5663-4C43-AED5-1023B6592488}
+		{7715A5E7-E880-46CD-B0FF-C535C56D69BB} = {DD2630D9-036D-41F5-9803-5BF8362F7557}
+	EndGlobalSection
+EndGlobal
