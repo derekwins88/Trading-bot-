@@ -1,0 +1,27 @@
+name: Generate Badges
+
+on:
+  push:
+    paths:
+      - 'Capsules/**'
+      - '.github/actions/axiom-badge-matrix/**'
+      - 'config/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Generate badge table
+        run: |
+          python .github/actions/axiom-badge-matrix/generate_axiom_badge_matrix.py
+      - name: Commit badges
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Update axiom badges'
+          file_pattern: 'docs/axiom_badges.md'
