@@ -1,6 +1,3 @@
-git add .
-git commit -m "🔧 Resolve merge conflicts with main"
-git push origin codex
 #
 
 Learns over trades and generates badge tables from stored capsules.
