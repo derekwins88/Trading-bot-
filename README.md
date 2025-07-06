@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+# Trading-bot-
+Learns over trades
+=======
+# Trading-bot
+Learns over trades and generates badge tables
+>>>>>>> main
 #
 
 Learns over trades and generates badge tables from stored capsules.
