@@ -8,12 +8,7 @@ from .session import session_weight
 from .execution import fill_trade
 from .capsule_logger import trade_capsule, write_ndjson
 from .policy import DailyBook, DayPolicy
-
-
-def collapse_direction(close: np.ndarray, lookback: int = 20) -> str:
-    if close.size <= lookback: return "wait"
-    return "long" if close[-1] > close[-lookback] else "short"
-
+from .strategies import entry_side, Mode
 def stream_dphi(high: np.ndarray, low: np.ndarray, close: np.ndarray, atr_period: int) -> np.ndarray:
     a = atr(high, low, close, atr_period)
     return delta_phi(a, close)
@@ -28,6 +23,9 @@ def multi_entry_scan(
     cooldown_bars: int = 10,
     day_policy: DayPolicy = DayPolicy(),
     equity: float = 50_000.0,
+    mode: Mode = "collapse",
+    rev_k: float = 1.0,
+    ma_period: int = 20,
 ) -> Tuple[int, float]:
     """
     Walks the chart; on each bar i, compute verdict from a rolling window (up to i),
@@ -57,16 +55,22 @@ def multi_entry_scan(
 
         # verdict from series up to i (rolling)
         v = verdict_from_series(dphi_all[: i + 1])
-        if v.glyph != "⟿":
-            continue
 
-        side = collapse_direction(close[: i + 1])
+        # Gate by glyph according to mode
+        if mode == "collapse":
+            if v.glyph != "⟿":
+                continue
+        else:  # recovery mode
+            if v.glyph != "☑":
+                continue
+
+        atr_i = float(atr(high, low, close, atr_period)[i])  # ATR at i
+        side = entry_side(mode, close[: i + 1], atr_i, lookback=20, k=rev_k, ma_period=ma_period)
         if side == "wait":
             continue
 
         entry = float(close[i])
         w = session_weight(ts)
-        atr_i = float(atr(high, low, close, atr_period)[i])  # reuse function for clarity
         size = max(1, int(position_size(equity, atr_i, entry, risk) * w))
         stop, target = stops_targets(entry, side, atr_i, risk)
 
