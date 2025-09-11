@@ -1,10 +1,6 @@
-# Ignore build artifacts
-bin/
-obj/
-*.user
-*.suo
-*.userprefs
-*.dll
-*.pdb
-*.cache
-*.ide
+__pycache__/
+*.pyc
+*.log
+.env
+artifacts/
+data/*.ndjson

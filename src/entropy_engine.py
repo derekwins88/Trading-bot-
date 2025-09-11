@@ -1,24 +1,3 @@
-# EntropyTraderBot
-
-![CI](https://img.shields.io/github/actions/workflow/status/OWNER/REPO/ci.yml?branch=main)
-
-Turn **entropy drift** (ΔΦ) into **adaptive trades**.  
-Verdicts: ⟿ collapse (trend conviction), ⚖ sat-like (flat), ☑ recovered (no trade).
-
-## Quick start
-```bash
-python -m src.backtest_runner --csv data/sample_ohlcv.csv --symbol ES
-```
-
-Artifacts land in artifacts/ as:
-	•	trades.ndjson – one line per trade capsule
-	•	report.json – metrics & drift summary
-
-
-> Replace `OWNER/REPO` in the badge after you push.
-
-### `src/entropy_engine.py`
-```python
 # ΔΦ / verdict computation with CPU-only NumPy; CI-friendly
 from __future__ import annotations
 import numpy as np
@@ -68,4 +47,3 @@ def verdict_from_series(dphi: np.ndarray) -> Verdict:
     sat_like = bool(np.all(np.diff(dphi) <= 1e-12))
     glyph = "⟿" if (np_wall and not no_recovery and not sat_like) else ("⚖" if sat_like else "☑")
     return Verdict(np_wall, no_recovery, sat_like, glyph, float(dphi[-1]))
-```
