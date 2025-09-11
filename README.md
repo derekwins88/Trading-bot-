@@ -93,3 +93,27 @@ Artifacts:
     • artifacts/trades.ndjson – one capsule per trade
     • artifacts/session_summary.json – total trades + cumulative R
 
+### Portfolio mode (multi-symbol)
+```bash
+python -m src.portfolio_runner \
+  --csv ES:data/sample_ohlcv.csv \
+  --csv NQ:data/sample_ohlcv.csv \
+  --csv CL:data/sample_ohlcv.csv \
+  --max-trades 8 --dd-r -5 --cooldown 10 --lookahead 64
+```
+
+Artifacts:
+    • artifacts/<SYMBOL>/trades.ndjson – per-symbol capsules
+    • artifacts/portfolio_summary.json – aggregate trades + net_R and per-symbol metrics
+
+---
+
+## Why this matters
+- **Portfolio reality**: you can now test ES/NQ/CL together with per-symbol guardrails.
+- **Metrics panel**: supports both legacy PnL capsules and the new R-based capsules.
+- **CI-safe**: tiny tests + no network calls; works on vanilla runners.
+
+If you want the next slice, I’ll add:
+- **Expectancy table** (avg win R, avg loss R, payoff ratio)
+- **A/B strategy toggles** (collapse ⟿ vs. recovery ☑ mean-reversion) with a comparison report.
+
