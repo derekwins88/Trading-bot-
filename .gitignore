@@ -1,0 +1,10 @@
+# Ignore build artifacts
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.dll
+*.pdb
+*.cache
+*.ide
