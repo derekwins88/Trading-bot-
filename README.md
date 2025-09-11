@@ -77,3 +77,19 @@ def verdict_from_series(dphi: np.ndarray) -> Verdict:
     glyph = "⟿" if (np_wall and no_recovery and not sat_like) else ("⚖" if sat_like else "☑")
     return Verdict(np_wall, no_recovery, sat_like, glyph, float(dphi[-1]))
 ```
+
+### Multi-entry backtest (with daily clamp & cooldown)
+```bash
+python -m src.multi_backtest \
+  --csv data/sample_ohlcv.csv \
+  --symbol ES \
+  --max-trades 8 \
+  --dd-r -5 \
+  --cooldown 10 \
+  --lookahead 64
+```
+
+Artifacts:
+    • artifacts/trades.ndjson – one capsule per trade
+    • artifacts/session_summary.json – total trades + cumulative R
+
