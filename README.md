@@ -106,14 +106,23 @@ Artifacts:
     • artifacts/<SYMBOL>/trades.ndjson – per-symbol capsules
     • artifacts/portfolio_summary.json – aggregate trades + net_R and per-symbol metrics
 
+### A/B compare (⟿ collapse vs ☑ recovery)
+```bash
+python -m src.ab_runner --csv data/sample_ohlcv.csv --symbol ES \
+  --rev-k 1.0 --ma 20 --max-trades 8 --dd-r -5 --cooldown 10
+```
+
+Outputs:
+    • artifacts/ES_A/ and artifacts/ES_B/ – per-strategy trade capsules
+    • artifacts/ab_summary.json – side-by-side cumR & trade counts
+
+Recovery mode: trades toward SMA when price deviates > k×ATR (default k=1.0) and glyph is ☑.
+
 ---
 
-## Why this matters
-- **Portfolio reality**: you can now test ES/NQ/CL together with per-symbol guardrails.
-- **Metrics panel**: supports both legacy PnL capsules and the new R-based capsules.
-- **CI-safe**: tiny tests + no network calls; works on vanilla runners.
-
-If you want the next slice, I’ll add:
-- **Expectancy table** (avg win R, avg loss R, payoff ratio)
-- **A/B strategy toggles** (collapse ⟿ vs. recovery ☑ mean-reversion) with a comparison report.
+## What you get right now
+- Toggleable **strategy modes** without touching the core engine
+- **Expectancy panel** (avg win R, avg loss R, payoff, profit factor, cumR)
+- A clean **A/B runner** to compare ideas quickly
+- CI stays green (pure-Python + tiny tests)
 
