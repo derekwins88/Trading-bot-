@@ -1,0 +1,1 @@
+# makes src a package for -m entry points and tests

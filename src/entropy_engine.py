@@ -42,7 +42,8 @@ def verdict_from_series(dphi: np.ndarray) -> Verdict:
         recovered = tail.size > 0 and np.all(tail <= RECOV_EPS)
 
     no_recovery = not recovered
-    sat_like = bool(np.all(np.diff(dphi) <= 1e-12))
+    # tolerate tiny floating point drift when checking for non-increasing series
+    sat_like = bool(np.all(np.diff(dphi) <= 1e-9))
 
     glyph = "⟿" if (np_wall and no_recovery and not sat_like) else ("⚖" if sat_like else "☑")
     return Verdict(np_wall, no_recovery, sat_like, glyph, float(dphi[-1]))

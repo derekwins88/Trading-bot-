@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg?branch=main)
 
-Turn **entropy drift** (ΔΦ) into **adaptive trades**.  
+Turn **entropy drift** (ΔΦ) into **adaptive trades**.
 Verdicts: ⟿ collapse (trend conviction), ⚖ sat-like (flat), ☑ recovered (no trade).
 
 ## Quick start
@@ -16,6 +16,11 @@ Artifacts land in artifacts/ as:
 
 
 > Replace `OWNER/REPO` in the badge URL with your GitHub path after pushing.
+
+### Risk & Sessions
+- Sizing = %equity / (ATR * multiplier). Default: risk 1.6%, stop = 1.5×ATR, RR=2.5.
+- Session multiplier: Asia 0.6×, London 1.0×, NY 1.5× (affects position size).
+- Metrics auto-emitted to `artifacts/metrics.json` after `--report`.
 
 ### `src/entropy_engine.py`
 ```python
@@ -62,7 +67,8 @@ def verdict_from_series(dphi: np.ndarray) -> Verdict:
         recovered = tail.size > 0 and np.all(tail <= RECOV_EPS)
 
     no_recovery = not recovered
-    sat_like = bool(np.all(np.diff(dphi) <= 1e-12))
+    # tolerate tiny floating point drift when checking for non-increasing series
+    sat_like = bool(np.all(np.diff(dphi) <= 1e-9))
 
     glyph = "⟿" if (np_wall and no_recovery and not sat_like) else ("⚖" if sat_like else "☑")
     return Verdict(np_wall, no_recovery, sat_like, glyph, float(dphi[-1]))
