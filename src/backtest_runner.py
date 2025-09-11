@@ -1,6 +1,7 @@
 import argparse, json, os
 import pandas as pd
 from .strategy import EntropyStrategy, Params
+from .metrics import load_trades, compute_metrics
 
 def load_csv(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
@@ -26,6 +27,9 @@ def main():
         os.makedirs("artifacts", exist_ok=True)
         with open("artifacts/report.json", "w") as f:
             json.dump(res, f, indent=2)
+        mets = compute_metrics(load_trades("artifacts/trades.ndjson"))
+        with open("artifacts/metrics.json", "w") as f:
+            json.dump(mets, f, indent=2)
 
 if __name__ == "__main__":
     main()
