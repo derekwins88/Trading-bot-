@@ -118,6 +118,40 @@ Outputs:
 
 Recovery mode: trades toward SMA when price deviates > k×ATR (default k=1.0) and glyph is ☑.
 
+### Walk-Forward Evaluation (rolling OOS)
+Evaluate the strategy on rolling out-of-sample windows.
+
+```bash
+python -m src.wf_runner \
+  --csv data/sample_ohlcv.csv \
+  --symbol ES \
+  --mode collapse \
+  --test-bars 500 --step-bars 250 \
+  --max-trades 8 --dd-r -5 --cooldown 10
+```
+
+Artifacts:
+    • artifacts/wf/split_XX/ — per-split trade capsules
+    • artifacts/wf/wf_summary.json — {splits, total_trades, net_R, by_split:[...]}
+
+Tip: run both modes to compare stability over time:
+
+```bash
+python -m src.wf_runner --csv data/sample_ohlcv.csv --symbol ES --mode recovery
+```
+
+---
+
+## Why this helps
+- Gives you a **time-robust** view of collapse (⟿) vs. recovery (☑) behavior.
+- Clean separation of **in-sample** (unused for now) and **out-of-sample** windows.
+- Produces **per-split capsules** that match your existing analytics workflow.
+
+Want the next brick after this? Options:
+1) **Single-file HTML report** from artifacts (metrics table + split summary).
+2) **Parameter sweep** (grid over `rev_k`, `atr_period`, `rr`) with a leaderboard.
+3) **Paper-trade adapter** (CCXT / broker sim) behind a `--live` flag (stubbed in CI).
+
 ---
 
 ## What you get right now
