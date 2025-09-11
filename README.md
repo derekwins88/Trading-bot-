@@ -14,6 +14,10 @@ Artifacts land in artifacts/ as:
 	•	trades.ndjson – one line per trade capsule
 	•	report.json – metrics & drift summary
 
+**Execution model:** backtests simulate bar-by-bar fills with conservative
+*stop-first* semantics when both stop and target are reachable on the same bar.
+
+
 
 > Replace `OWNER/REPO` in the badge URL with your GitHub path after pushing.
 
